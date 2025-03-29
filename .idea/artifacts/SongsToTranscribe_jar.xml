@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="SongsToTranscribe:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/SongsToTranscribe_jar</output-path>
+    <root id="archive" name="SongsToTranscribe.jar">
+      <element id="module-output" name="SongsToTranscribe" />
+    </root>
+  </artifact>
+</component>

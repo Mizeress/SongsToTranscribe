@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/sortSongsToTranscribe.iml" filepath="$PROJECT_DIR$/sortSongsToTranscribe.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SongsToTranscribe.iml" filepath="$PROJECT_DIR$/SongsToTranscribe.iml" />
     </modules>
   </component>
 </project>
