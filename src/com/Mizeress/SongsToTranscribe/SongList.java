@@ -54,10 +54,10 @@ public class SongList {
     @Override
     public String toString() {
         StringBuilder string = new StringBuilder();
-        string.append(String.format("%-25s %-25s %n", "Name:", "Artist:"));
+        string.append(String.format("%-35s %-35s %n", "Name:", "Artist:"));
 
         for(Song song : songList) {
-            string.append(String.format("%-25s %-25s%n", song.getName(), song.getArtist()));
+            string.append(String.format("%-35s %-35s%n", song.getName(), song.getArtist()));
         }
 
         return string.toString();

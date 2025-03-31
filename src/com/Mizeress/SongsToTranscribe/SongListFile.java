@@ -43,17 +43,33 @@ public class SongListFile {
      * Append a song to the song file and list in memory
      * @param song the song to append
      */
-    public void writeSong(Song song) {
+    public void appendSong(Song song) {
         String lineToWrite;
         lineToWrite = song.getName() + "," + song.getArtist() + "\n";
 
         try(FileWriter writer = new FileWriter(PATH, true)) {
             writer.write(lineToWrite);
             songList.addSong(song);
-            System.out.println("Added " + song.getName() + " " + song.getArtist() + " to File\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Delete song from the list
+     * @param song The song to delete
+     */
+    public void deleteSong(Song song) {
+        songList.deleteSong(song);
+        writeList();
+    }
+
+    /**
+     * Sort the list by Artist, Name
+     */
+    public void sortList() {
+        songList.sortList();
+        writeList();
     }
 
     /**
