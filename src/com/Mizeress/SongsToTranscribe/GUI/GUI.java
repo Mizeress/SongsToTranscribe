@@ -4,7 +4,11 @@ import com.Mizeress.SongsToTranscribe.Song;
 import com.Mizeress.SongsToTranscribe.SongListFile;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import java.awt.*;
 
 public class GUI {
@@ -19,6 +23,13 @@ public class GUI {
     public GUI(SongListFile songListFile) {
         this.songListFile = songListFile;
 
+        //Apply a theme
+        try {
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         frame = new JFrame();
 
         //Frame settings
@@ -26,10 +37,11 @@ public class GUI {
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(WIDTH, HEIGHT);
 
-        //Setup the panel for the buttons
+        //Set up the panel for the buttons
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 10));
         buttonPanel.setBackground(Color.darkGray);
+        buttonPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         //Create the buttons
         Button addButton = new Button("Add");
@@ -44,6 +56,12 @@ public class GUI {
         //Create the table and model
         model = new DefaultTableModel(new Object[]{"Name", "Song"}, 0);
         JTable table = new JTable(model);
+
+        //Customize table header
+        JTableHeader header = new JTableHeader();
+        header.setFont(new Font("Arial", Font.BOLD, 14));
+        header.setBackground(new Color(102, 102, 102)); //Blue background on header
+        header.setForeground(Color.WHITE); // White text
 
         //addButton clicked action
         addButton.addActionListener(e -> openAddSongForm());
@@ -70,6 +88,7 @@ public class GUI {
         //Scroll Pane to hold table
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setPreferredSize(new Dimension(400, 600));
+        scrollPane.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
 
         //Panel used for controlling table layout on page
         JPanel tablePanel = new JPanel();
@@ -77,8 +96,8 @@ public class GUI {
         tablePanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         tablePanel.add(scrollPane);
 
-        frame.add(tablePanel, BorderLayout.CENTER);
         frame.add(buttonPanel, BorderLayout.NORTH);
+        frame.add(tablePanel, BorderLayout.CENTER);
 
         frame.setVisible(true);
     }
