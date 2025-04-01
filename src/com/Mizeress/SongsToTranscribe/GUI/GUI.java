@@ -50,6 +50,9 @@ public class GUI {
         Button deleteButton = new Button("Delete");
         buttonPanel.add(deleteButton);
 
+        Button editButton = new Button("Edit");
+        buttonPanel.add(editButton);
+
         Button sortButton = new Button("Sort");
         buttonPanel.add(sortButton);
 
@@ -78,6 +81,9 @@ public class GUI {
                 populateTable();
             }
         });
+
+        //Edit Button Action
+        editButton.addActionListener(e -> openEditSongForm(table.getSelectedRow()));
 
         //Sort Button Action
         sortButton.addActionListener(e -> {
@@ -148,6 +154,57 @@ public class GUI {
         dialog.setLocationRelativeTo(frame);
         dialog.setVisible(true);
 
+    }
+
+    private void openEditSongForm(int songRow) {
+        // Capture initial state of the song
+        Song currentSong = new Song((String) model.getValueAt(songRow, 0), (String) model.getValueAt(songRow, 1));
+
+        //Create a dialog box for the form
+        JDialog dialog = new JDialog(frame, "Edit Song", true);
+        dialog.setSize(300,200);
+        dialog.setLayout(new GridLayout(3, 2, 10, 10));
+
+        //Add input fields
+        JLabel nameLabel = new JLabel("Name:");
+        JTextField nameField = new JTextField((String) model.getValueAt(songRow, 0));
+        JLabel artistLabel = new JLabel("Artist:");
+        JTextField artistField = new JTextField((String) model.getValueAt(songRow, 1));
+
+        //Add buttons
+        JButton submitButton = new JButton("Submit");
+        JButton cancelButton = new JButton("Cancel");
+
+        // Add action for the add Button
+        submitButton.addActionListener(e -> {
+            String name = nameField.getText();
+            String artist = artistField.getText();
+
+            if (!name.isEmpty() && !artist.isEmpty()) {
+                Song editedSong = new Song(name, artist);
+                songListFile.deleteSong(currentSong);
+                songListFile.appendSong(editedSong);
+                populateTable();
+                dialog.dispose();
+            } else {
+                JOptionPane.showMessageDialog(dialog, "Error, try again");
+            }
+        });
+
+        //Add action for the cancel button
+        cancelButton.addActionListener(e -> dialog.dispose());
+
+        //Add components to the dialog box
+        dialog.add(nameLabel);
+        dialog.add(nameField);
+        dialog.add(artistLabel);
+        dialog.add(artistField);
+        dialog.add(submitButton);
+        dialog.add(cancelButton);
+
+        //Display the dialog box
+        dialog.setLocationRelativeTo(frame);
+        dialog.setVisible(true);
     }
 
     public void populateTable() {
